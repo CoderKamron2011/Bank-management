@@ -37,7 +37,7 @@ namespace Bank_management.Brokers.Storage
             return user;
         }
 
-        public bool LogIn(User user)
+        public bool GetUser(User user)
         {
             string[] userLines = File.ReadAllLines(filePath);
 
