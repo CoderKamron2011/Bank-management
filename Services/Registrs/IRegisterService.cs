@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bank_management.Brokers.Storage
+namespace Bank_management.Services.Registrs
 {
-    internal interface IRegisterBroker
+    internal interface IRegisterService
     {
-        User AddUser(User user);
-        bool GetUser(User user);
+        bool LogIn(User user);
+        User SignUp(User user);
     }
 }
