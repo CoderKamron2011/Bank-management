@@ -1,12 +1,10 @@
-﻿using Bank_management.Brokers.Logging;
+﻿//----------------------------------------
+// Great Code Team (c) All rights reserved
+//----------------------------------------
+
+using Bank_management.Brokers.Logging;
 using Bank_management.Brokers.Storage;
 using Bank_management.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 
 namespace Bank_management.Services.Registrs
 {
@@ -49,7 +47,7 @@ namespace Bank_management.Services.Registrs
                 var userInformation = this.storageBroker.AddUser(user);
                 if (userInformation is null)
                 {
-                    this.loggingBroker.LogError("Not added user info");
+                    this.loggingBroker.LogError("Not added user information");
                 }
                 else
                 {
@@ -60,7 +58,7 @@ namespace Bank_management.Services.Registrs
         }
         private bool InvalidLogInUser()
         {
-            this.loggingBroker.LogError("your email or password is null");
+            this.loggingBroker.LogError("your name or password is null");
             return false;
         }
         private bool ValidationAndLogIn(User user)
@@ -76,7 +74,7 @@ namespace Bank_management.Services.Registrs
                 bool userInfo = this.storageBroker.GetUser(user);
                 if (userInfo is true)
                 {
-                    this.loggingBroker.LogInformation("successful");
+                    this.loggingBroker.LogInformation("successfull");
                 }
                 else
                 {
