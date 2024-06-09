@@ -31,7 +31,7 @@ namespace Bank_management.Services.Registrs
         }
         private User InvalidSignUp()
         {
-            this.loggingBroker.LogError("User information is null.");
+            this.loggingBroker.LogError("User information is null or empty.");
             return new User();
         }
         private User ValidationAndSignUpUser(User user)
@@ -68,7 +68,7 @@ namespace Bank_management.Services.Registrs
         }
         private bool InvalidLogInUser()
         {
-            this.loggingBroker.LogError("your name or password is empty");
+            this.loggingBroker.LogError("User data is null.");
             return false;
         }
         private bool ValidationAndLogIn(User user)
@@ -76,21 +76,31 @@ namespace Bank_management.Services.Registrs
             if (String.IsNullOrWhiteSpace(user.Name)
                 || String.IsNullOrWhiteSpace(user.Password))
             {
-                this.loggingBroker.LogError("Incoming data is incomplete");
+                this.loggingBroker.LogInformation("User data is not required.");
                 return false;
             }
             else
             {
-                bool userInfo = this.registerBroker.GetUser(user);
-                if (userInfo is true)
+                bool isLogIn = this.registerBroker.GetUser(user);
+
+                if (user.Password.Length >= 8)
                 {
-                    this.loggingBroker.LogInformation("successfull");
+                    if (isLogIn is true)
+                    {
+                        this.loggingBroker.LogInformation("Successfully logged in.");
+                        return true;
+                    }
+                    else
+                    {
+                        this.loggingBroker.LogError("User does not exist in the database.");
+                        return false;
+                    }
                 }
                 else
                 {
-                    this.loggingBroker.LogError("Not found");
+                    this.loggingBroker.LogError("Password does not contain 8 characters.");
+                    return false;
                 }
-                return userInfo;
             }
         }
     }
