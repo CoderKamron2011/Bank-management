@@ -11,11 +11,11 @@ namespace Bank_management.Services.Registrs
     internal class RegisterService : IRegisterService
     {
         private readonly ILoggingBroker loggingBroker;
-        private readonly IRegisterBroker storageBroker;
+        private readonly IRegisterBroker registerBroker;
         public RegisterService()
         {
             this.loggingBroker = new LoggingBroker();
-            this.storageBroker = new RegisterBroker();
+            this.registerBroker = new RegisterBroker();
         }
         public bool LogIn(User user)
         {
@@ -37,28 +37,38 @@ namespace Bank_management.Services.Registrs
         private User ValidationAndSignUpUser(User user)
         {
             if (String.IsNullOrWhiteSpace(user.Name)
-              || String.IsNullOrWhiteSpace(user.Password))
+                || String.IsNullOrWhiteSpace(user.Password))
             {
-                this.loggingBroker.LogError("Invalid user information");
+                this.loggingBroker.LogError("User information is incomplete");
                 return new User();
             }
             else
             {
-                var userInformation = this.storageBroker.AddUser(user);
-                if (userInformation is null)
+                User userInformation = this.registerBroker.AddUser(user);
+
+                if (user.Password.Length >= 8)
                 {
-                    this.loggingBroker.LogError("Not added user information");
+                    if (userInformation is null)
+                    {
+                        this.loggingBroker.LogError("This user base is available.");
+                        return new User();
+                    }
+                    else
+                    {
+                        this.loggingBroker.LogInformation("User added successfully.");
+                        return user;
+                    }
                 }
                 else
                 {
-                    this.loggingBroker.LogInformation("Added user");
+                    this.loggingBroker.LogError("Password does not contain 8 characters.");
+                    return new User();
                 }
-                return userInformation;
             }
         }
         private bool InvalidLogInUser()
         {
-            this.loggingBroker.LogError("your name or password is null");
+            this.loggingBroker.LogError("your name or password is empty");
             return false;
         }
         private bool ValidationAndLogIn(User user)
@@ -71,7 +81,7 @@ namespace Bank_management.Services.Registrs
             }
             else
             {
-                bool userInfo = this.storageBroker.GetUser(user);
+                bool userInfo = this.registerBroker.GetUser(user);
                 if (userInfo is true)
                 {
                     this.loggingBroker.LogInformation("successfull");
