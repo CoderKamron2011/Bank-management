@@ -4,6 +4,7 @@
 
 using Bank_management.Brokers.Logging;
 using Bank_management.Brokers.Storage;
+using Bank_management.Brokers.Storage.Register;
 using Bank_management.Model;
 
 namespace Bank_management.Services.Registrs

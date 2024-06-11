@@ -4,7 +4,7 @@
 
 using Bank_management.Model;
 
-namespace Bank_management.Brokers.Storage
+namespace Bank_management.Brokers.Storage.Register
 {
     internal interface IRegisterBroker
     {

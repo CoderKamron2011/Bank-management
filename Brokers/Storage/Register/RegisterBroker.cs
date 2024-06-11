@@ -4,9 +4,9 @@
 
 using Bank_management.Model;
 
-namespace Bank_management.Brokers.Storage
+namespace Bank_management.Brokers.Storage.Register
 {
-    internal class RegisterBroker: IRegisterBroker
+    internal class RegisterBroker : IRegisterBroker
     {
         private readonly string filePath = "../../../Assets/RegistrFileDb.txt";
 
