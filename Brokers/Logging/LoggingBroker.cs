@@ -6,19 +6,26 @@ using System.Threading.Tasks;
 
 namespace Bank_management.Brokers.Logging
 {
-    internal class LoggingBroker: ILoggingBroker
+    internal class LoggingBroker : ILoggingBroker
     {
-        public void LogError(string userMessage)
-        {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(userMessage);
-            Console.ResetColor();
-        }
         public void LogInformation(string message)
         {
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine(message);
-            Console.ResetColor();
+            System.Console.ForegroundColor = ConsoleColor.DarkGreen;
+            System.Console.WriteLine(message);
+            System.Console.ResetColor();
+        }
+        public void LogError(string userMessage)
+        {
+            System.Console.ForegroundColor = ConsoleColor.Red;
+            System.Console.WriteLine(userMessage);
+            System.Console.ResetColor();
+        }
+        public void LogError(Exception exception)
+        {
+            System.Console.ForegroundColor = ConsoleColor.DarkRed;
+            System.Console.WriteLine(exception.Message);
+            System.Console.ResetColor();
         }
     }
+}
 }
