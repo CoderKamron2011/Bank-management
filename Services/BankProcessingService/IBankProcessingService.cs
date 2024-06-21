@@ -8,19 +8,16 @@ namespace Bank_management.Services.BankProcessingService
 {
     internal interface IBankProcessingService
     {
-        internal interface IBankProcessingsService
-        {
-            public bool DeleteForClient(decimal accountNumber);
-            public decimal GetBalance(decimal accountNumberForBank);
-            public decimal GetMoney(decimal accountNumberForBank, decimal balance);
-            public bool LogInUser(User user);
-            public bool PostDeposit(decimal accountNumberForBank, decimal balance);
-            public bool PostForClient(Customer customer);
-            public User PostUser(User user);
-            public bool TransferMoneyBetweenAccountsForClient(
-                    decimal firstAccountNumber,
-                    decimal secondAccountNumber,
-                    decimal money);
-        }
+        bool DeleteForClient(decimal accountNumber);
+        decimal GetBalance(decimal accountNumberForBank);
+        decimal GetMoney(decimal accountNumberForBank, decimal balance);
+        bool LogInUser(User user);
+        bool PostDeposit(decimal accountNumberForBank, decimal balance);
+        bool PostForClient(Customer customer);
+        User PostUser(User user);
+        bool TransferMoneyBetweenAccountsForClient(
+                decimal firstAccountNumber,
+                decimal secondAccountNumber,
+                decimal money);
     }
 }

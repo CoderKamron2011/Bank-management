@@ -10,6 +10,9 @@ namespace Bank_management.Brokers.Storage.Bank.Customers
     {
         bool CreateAccountNumberForClient(Model.Customer customer);
         bool CloseAccountNumberForClient(decimal accountNumber);
-        bool TransferMoneyBetweenAccounts(decimal firstAccountNumber, decimal secondAccountNumber, decimal money);
+        bool TransferMoneyBetweenAccounts(
+            decimal firstAccountNumber
+            , decimal secondAccountNumber
+            , decimal money);
     }
 }
