@@ -10,106 +10,132 @@ using Bank_management.Services.Foundation.Banks;
 using Bank_management.Services.Foundation.Registrs;
 using Bank_management.Services.Foundation.Banks.Customers;
 
-SelectMenu();
+SelectDBMenu();
 Console.Write("Enter command: ");
 int command = Convert.ToInt32(Console.ReadLine());
 
 if (command == 1)
 {
     BankProcessingService processingService = BankManagmentProject();
+    Console.Clear();
+    Console.WriteLine("=============== LogIn ================\n");
     User userLogIn = InputRegistrUserInfo();
     bool isThere = processingService.LogInUser(userLogIn);
     if (isThere is false)
     {
+        Console.Clear();
+        Console.WriteLine("================== Welcome to BANK =================\n");
+        Console.WriteLine("============= Sign Up =============\n");
         User userSignUp = InputRegistrUserInfo();
         processingService.PostUser(userSignUp);
-    }
-    else
-    {
-        SelectBankFunction();
     }
 }
 else if (command == 2)
 {
     BankProcessingService bankProcessingService = BankManagmentProject();
+    Console.Clear();
+    Console.WriteLine("============= Sign Up =============\n");
     User userSinnUp = InputRegistrUserInfo();
     User userInfo = bankProcessingService.PostUser(userSinnUp);
-    if (userInfo == userSinnUp)
+    if (userInfo.Name != userSinnUp.Name
+        && userInfo.Password != userSinnUp.Password)
     {
-        bankProcessingService.LogInUser(userInfo);
-    }
-    else
-    {
-        SelectBankFunction();
+        Console.WriteLine("=============== LogIn ================\n");
+        User userLogIn = InputRegistrUserInfo();
+        bankProcessingService.LogInUser(userLogIn);
     }
 }
 
-bool isContinueProject = true;
+bool isContinue = true;
 BankProcessingService bankProcessingService1 = BankManagmentProject();
 do
 {
+    Console.WriteLine("================== Welcome to BANK =================\n");
+    Console.WriteLine("1. Bank\n");
+    Console.WriteLine("2. Client\n");
     Console.Write("Enter command: ");
-    int commands = Convert.ToInt32(Console.ReadLine());
+    int command1 = Convert.ToInt32(Console.ReadLine());
+    if (command1 == 1)
+    {
+        SelectBankFunction();
+        Console.Write("Enter command: ");
+        int commandBank = Convert.ToInt32(Console.ReadLine());
+        if (commandBank == 1)
+        {
+            Console.Write("Enter the AccountNumber: ");
+            decimal accountNumber = Convert.ToDecimal(Console.ReadLine());
+            Console.Write("Enter the balance: ");
+            decimal balance = Convert.ToDecimal(Console.ReadLine());
+            bankProcessingService1.PostDeposit(accountNumber, balance);
+        }
+        if (commandBank == 2)
+        {
+            Console.Write("Enter the accountNumberForBank: ");
+            decimal accountNumberForBank = Convert.ToDecimal(Console.ReadLine());
+            Console.Write("Enter the balance: ");
+            decimal balance = Convert.ToDecimal(Console.ReadLine());
+            decimal balanceForBank = bankProcessingService1.GetMoney(accountNumberForBank, balance);
+            Console.WriteLine(balanceForBank);
+        }
+        if (commandBank == 3)
+        {
+            Console.Write("Enter the accountNumberForBank: ");
+            decimal accountNumberForBank = Convert.ToDecimal(Console.ReadLine());
+            decimal balanceForBank = bankProcessingService1.GetBalance(accountNumberForBank);
+            Console.WriteLine(balanceForBank);
+        }
+    }
+    else if (command1 == 2)
+    {
+        SelectClientFunction();
+        Console.Write("Enter command: ");
+        int commandClient = Convert.ToInt32(Console.ReadLine());
+        if (commandClient == 1)
+        {
+            Customer customer = new Customer();
+            Console.Write("Enter the Name: ");
+            customer.Name = Console.ReadLine();
+            Console.Write("Enter the accountNumber: ");
+            customer.AccountNumber = Convert.ToDecimal(Console.ReadLine());
+            Console.Write("Enter the balance: ");
+            customer.Balance = Convert.ToDecimal(Console.ReadLine());
+            bankProcessingService1.PostForClient(customer);
+        }
+        if (commandClient == 2)
+        {
+            Console.Write("Enter the firstAccountNumber: ");
+            decimal firstAccountNumber = Convert.ToDecimal(Console.ReadLine());
+            Console.Write("Enter the secondAccountNumber: ");
+            decimal secondAccountNumber = Convert.ToDecimal(Console.ReadLine());
+            Console.Write("Enter the money: ");
+            decimal money = Convert.ToDecimal(Console.ReadLine());
+            bankProcessingService1.TransferMoneyBetweenAccountsForClient(firstAccountNumber, secondAccountNumber, money);
+        }
+        if (commandClient == 3)
+        {
+            Console.Write("Enter the AccountNumber: ");
+            decimal accountNumber = Convert.ToDecimal(Console.ReadLine());
+            bankProcessingService1.DeleteForClient(accountNumber);
+        }
+    }
 
-    if (commands == 1)
+    Console.Write("Is Continue ");
+    string isCommand = Console.ReadLine();
+    if (isCommand.ToLower().Contains("no") is true)
     {
-        Console.Write("Enter the AccountNumber: ");
-        decimal accountNumber = Convert.ToDecimal(Console.ReadLine());
-        Console.Write("Enter the balance: ");
-        decimal balance = Convert.ToDecimal(Console.ReadLine());
-        bankProcessingService1.PostDeposit(accountNumber, balance);
+        isContinue = false;
     }
-    if (commands == 2)
+    else if (isCommand.ToLower().Contains("yes") is true)
     {
-        Console.Write("Enter the AccountNumber: ");
-        decimal accountNumber = Convert.ToDecimal(Console.ReadLine());
-        bankProcessingService1.DeleteForClient(accountNumber);
+        isContinue = true;
+        Console.Clear();
     }
-    if (commands == 3)
+    else
     {
-        Console.Write("Enter the firstAccountNumber: ");
-        decimal firstAccountNumber = Convert.ToDecimal(Console.ReadLine());
-        Console.Write("Enter the secondAccountNumber: ");
-        decimal secondAccountNumber = Convert.ToDecimal(Console.ReadLine());
-        Console.Write("Enter the money: ");
-        decimal money = Convert.ToDecimal(Console.ReadLine());
-        bankProcessingService1.TransferMoneyBetweenAccountsForClient(firstAccountNumber, secondAccountNumber, money);
+        isContinue = false;
+        Console.WriteLine("The command was issued incorrectly.");
     }
-    if (commands == 4)
-    {
-        Console.Write("Enter the accountNumberForBank: ");
-        decimal accountNumberForBank = Convert.ToDecimal(Console.ReadLine());
-        Console.Write("Enter the balance: ");
-        decimal balance = Convert.ToDecimal(Console.ReadLine());
-        decimal balanceForBank = bankProcessingService1.GetMoney(accountNumberForBank, balance);
-        Console.WriteLine(balanceForBank);
-    }
-    if (commands == 5)
-    {
-        Console.Write("Enter the accountNumberForBank: ");
-        decimal accountNumberForBank = Convert.ToDecimal(Console.ReadLine());
-        decimal balanceForBank = bankProcessingService1.GetBalance(accountNumberForBank);
-        Console.WriteLine(balanceForBank);
-    }
-    if (commands == 6)
-    {
-        Customer customer = new Customer();
-        Console.Write("Enter the Name: ");
-        customer.Name = Console.ReadLine();
-        Console.Write("Enter the accountNumber: ");
-        customer.AccountNumber = Convert.ToDecimal(Console.ReadLine());
-        Console.Write("Enter the balance: ");
-        customer.Balance = Convert.ToDecimal(Console.ReadLine());
-        bankProcessingService1.PostForClient(customer);
-    }
-    Console.Write("Is Continue(yes / no): ");
-    string isContinue = Console.ReadLine();
-    if (isContinue.Contains("no"))
-    {
-        isContinueProject = false;
-    }
-
-} while (isContinueProject is true);
+} while (isContinue is true);
 
 static BankProcessingService BankManagmentProject()
 {
@@ -123,9 +149,10 @@ static BankProcessingService BankManagmentProject()
     return bankProcessingService;
 }
 
-static void SelectMenu()
+static void SelectDBMenu()
 {
-    Console.WriteLine("================== Welcome to BANK =================");
+    Console.Clear();
+    Console.WriteLine("================== Welcome to BANK =================\n");
     Console.WriteLine("1. LogIn. ");
     Console.WriteLine("2. SignUp. ");
 }
@@ -143,10 +170,18 @@ static User InputRegistrUserInfo()
 
 static void SelectBankFunction()
 {
-    Console.WriteLine("1. Post Deposit");
-    Console.WriteLine("2. Delete Account");
-    Console.WriteLine("3. Transfer Money");
-    Console.WriteLine("4. Get Money");
-    Console.WriteLine("5. Get balance");
-    Console.WriteLine("6. create account number");
+    Console.Clear();
+    Console.WriteLine("================ BANK =================\n");
+    Console.WriteLine("1. Post Deposit For Bank");
+    Console.WriteLine("2. Get Money For Bank");
+    Console.WriteLine("3. Get balance For Bank");
+}
+
+static void SelectClientFunction()
+{
+    Console.Clear();
+    Console.WriteLine("================== CLIENT =================\n");
+    Console.WriteLine("1. Post For Client");
+    Console.WriteLine("2. Transfer Money Between Accounts For Client");
+    Console.WriteLine("3. Delete For Client");
 }
