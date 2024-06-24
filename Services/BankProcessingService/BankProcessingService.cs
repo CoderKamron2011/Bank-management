@@ -27,6 +27,11 @@ namespace Bank_management.Services.BankProcessingService
             this.bankService = bankService;
             this.customerService = customerService;
         }
+        public decimal GetBalanceClient(decimal accountNumber) =>
+            this.customerService.GetBalanceInClient(accountNumber);
+
+        public string GetAllClient() => 
+            this.customerService.GetAllCustomers();
 
         public bool DeleteForClient(decimal accountNumber) =>
             this.customerService.DeleteClient(accountNumber);

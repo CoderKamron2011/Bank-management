@@ -117,6 +117,17 @@ do
             decimal accountNumber = Convert.ToDecimal(Console.ReadLine());
             bankProcessingService1.DeleteForClient(accountNumber);
         }
+        if (commandClient == 4)
+        {
+            bankProcessingService1.GetAllClient();
+        }
+        if (commandClient == 5)
+        {
+            Console.Write("Enter the AccountNumber: ");
+            decimal accountNumber = Convert.ToDecimal(Console.ReadLine());
+            decimal balanceForClient = bankProcessingService1.GetBalanceClient(accountNumber);
+            Console.WriteLine(balanceForClient);
+        }
     }
 
     Console.Write("Is Continue ");
@@ -175,6 +186,7 @@ static void SelectBankFunction()
     Console.WriteLine("1. Post Deposit For Bank");
     Console.WriteLine("2. Get Money For Bank");
     Console.WriteLine("3. Get balance For Bank");
+    
 }
 
 static void SelectClientFunction()
@@ -184,4 +196,6 @@ static void SelectClientFunction()
     Console.WriteLine("1. Post For Client");
     Console.WriteLine("2. Transfer Money Between Accounts For Client");
     Console.WriteLine("3. Delete For Client");
+    Console.WriteLine("4. Get balance");
+    Console.WriteLine("5. Get Balance For Client");
 }
