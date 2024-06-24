@@ -8,6 +8,8 @@ namespace Bank_management.Services.BankProcessingService
 {
     internal interface IBankProcessingService
     {
+        string GetAllClient();
+        decimal GetBalanceClient(decimal accountNumber);
         bool DeleteForClient(decimal accountNumber);
         decimal GetBalance(decimal accountNumberForBank);
         decimal GetMoney(decimal accountNumberForBank, decimal balance);

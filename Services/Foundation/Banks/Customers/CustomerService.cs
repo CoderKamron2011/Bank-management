@@ -26,6 +26,12 @@ namespace Bank_management.Services.Foundation.Banks.Customers
                 ? InvalidCreateClient()
                 : ValidationAndCreateClient(customer);
         }
+        public decimal GetBalanceInClient(decimal accountNumber)
+        {
+            return accountNumber is 0
+                ? InvalidGetBalanceInClient()
+                : ValidationAndGetBalanceInClient(accountNumber);
+        }
 
         public bool DeleteClient(decimal accountNumber)
         {
@@ -81,6 +87,26 @@ namespace Bank_management.Services.Foundation.Banks.Customers
 
             return false;
         }
+        private decimal ValidationAndGetBalanceInClient(decimal accountNumber)
+        {
+            decimal resultGetBalance =
+                this.customerBroker.GetBalance(accountNumber);
+
+            if (resultGetBalance == 0)
+            {
+                this.loggingBroker.LogError("Account number not found.");
+                return resultGetBalance;
+            }
+
+            this.loggingBroker.LogInformation("The amount of money in the customer's balance was found successfully.");
+            return resultGetBalance;
+        }
+
+        private decimal InvalidGetBalanceInClient()
+        {
+            this.loggingBroker.LogError("This accountNumber was not found in the database.");
+            return 0;
+        }
 
         private bool ValidationAndDeleteClient(decimal accountNumber)
         {
@@ -122,7 +148,7 @@ namespace Bank_management.Services.Foundation.Banks.Customers
                 }
                 else
                 {
-                    this.loggingBroker.LogInformation("This account has been created.");
+                    this.loggingBroker.LogError("This account already created.");
                     return isCreateClient;
                 }
             }
@@ -135,6 +161,22 @@ namespace Bank_management.Services.Foundation.Banks.Customers
         {
             this.loggingBroker.LogError("Client has no information.");
             return false;
+        }
+
+        public string GetAllCustomers()
+        {
+            var clientInfo = this.customerBroker.ReadAllCustomers();
+
+            if (clientInfo is not null)
+            {
+                this.loggingBroker.LogInformation(clientInfo.ToString());
+            }
+            else
+            {
+                this.loggingBroker.LogError("The database is full of information.");
+            }
+
+            return clientInfo;
         }
     }
 }

@@ -14,5 +14,7 @@ namespace Bank_management.Brokers.Storage.Bank.Customers
             decimal firstAccountNumber
             , decimal secondAccountNumber
             , decimal money);
+        string ReadAllCustomers();
+        decimal GetBalance(decimal accountNumber);
     }
 }

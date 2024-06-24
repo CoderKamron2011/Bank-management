@@ -49,9 +49,9 @@ namespace Bank_management.Services.Foundation.Registrs
 
                 if (user.Password.Length >= 8)
                 {
-                    if (userInformation is null)
+                    if (userInformation.Name is null)
                     {
-                        loggingBroker.LogError("This user base is available.");
+                        this.loggingBroker.LogError("This user is available in the database.");
                         return new User();
                     }
                     else
