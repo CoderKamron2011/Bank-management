@@ -32,17 +32,17 @@ Here you can see the account number.
 
 To create an account, you must have the name of the owner, a new number and add balance. The number of numbers is less than 20 digits or cannot be duplicated.
 
-### 2.1.2 transfer money
+### 2.1.2 Transfer money
 ![home page](Image/transfer.gif)
 
 To transfer money from one account to another, first enter the sending account number and then the receiving account number.
 
-### 2.1.3 delete account number
+### 2.1.3 Delete account number
 ![home page](Image/delete.gif)
 
 To delete an account number, only the account number is required.
 
-### 2.1.4 get balance from account number
+### 2.1.4 Get balance from account number
 ![home page](Image/sui.gif)
 
 here you do not enter anything, the program itself displays all account numbers.
@@ -58,12 +58,12 @@ here you enter your nothing account number and it tells you how much money you h
 
 There are no bank accounts here.
 
-### 2.2.1 post deposit
+### 2.2.1 Post deposit
 ![home page](Image/postdepo.gif)
 
 here you enter your account number and write how much money you want to deposit and the computer will add that much money.
 
-### 2.2.2 get money
+### 2.2.2 Get money
 ![home page](Image/getmon.gif)
 
 you enter your account number here and write how much money you want to withdraw.
